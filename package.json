@@ -1,0 +1,23 @@
+{
+  "name": "moto-parts-serverless",
+  "version": "1.0.0",
+  "description": "Local-first serverless Moto Parts Marketplace API using Serverless Framework, Lambda emulation, and DynamoDB Local.",
+  "main": "src/functions/createParte.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "serverless offline start",
+    "deploy": "serverless deploy",
+    "seed": "node seed/seed.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.868.0",
+    "@aws-sdk/lib-dynamodb": "^3.868.0",
+    "dotenv": "^16.4.5",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "serverless": "^3.39.0",
+    "serverless-dynamodb-local": "^0.2.40",
+    "serverless-offline": "^13.8.1"
+  }
+}

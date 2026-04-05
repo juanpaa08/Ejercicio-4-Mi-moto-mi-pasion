@@ -1,0 +1,75 @@
+service: moto-parts-serverless
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: dev
+  environment:
+    DYNAMODB_TABLE: PartesMoto
+    IS_OFFLINE: true
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+    seed:
+      dev:
+        sources:
+          - table: PartesMoto
+            sources:
+              - ./seed/seed.json
+
+functions:
+  createParte:
+    handler: src/functions/createParte.handler
+    events:
+      - http:
+          path: /partes
+          method: post
+          cors: true
+
+  getPartes:
+    handler: src/functions/getPartes.handler
+    events:
+      - http:
+          path: /partes
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    PartesMotoTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: PartesMoto
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: tipo
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: TipoIndex
+            KeySchema:
+              - AttributeName: tipo
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
