@@ -13,8 +13,8 @@ provider:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
 
 plugins:
-  - serverless-offline
   - serverless-dynamodb-local
+  - serverless-offline
 
 custom:
   serverless-offline:
@@ -35,6 +35,14 @@ custom:
               - ./seed/seed.json
 
 functions:
+  frontend:
+    handler: src/functions/getFrontend.handler
+    events:
+      - http:
+          path: /app
+          method: get
+          cors: true
+
   createParte:
     handler: src/functions/createParte.handler
     events:

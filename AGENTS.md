@@ -19,6 +19,7 @@ Todo el repositorio fue generado por `Codex (GPT-5)` dentro de una sola sesion d
 - Capa de funciones:
   - `src/functions/createParte.js`
   - `src/functions/getPartes.js`
+  - `src/functions/getFrontend.js`
 - Datos y utilidades de seed:
   - `seed/seed.json`
   - `seed/seed.js`
@@ -40,6 +41,8 @@ Todo el repositorio fue generado por `Codex (GPT-5)` dentro de una sola sesion d
   - Objetivo: validar `nombre`, `tipo` y `precio`, construir la entidad con UUID y timestamp ISO, y delegar persistencia/consulta al repositorio.
 - Funciones:
   - Objetivo: mapear eventos HTTP a llamadas del servicio y devolver respuestas JSON consistentes con codigos `201`, `200`, `400` y `500`.
+- Frontend:
+  - Objetivo: servir una interfaz HTML local para crear y consultar partes usando los mismos endpoints del backend.
 - Seed:
   - Objetivo: proveer datos iniciales realistas en tres categorias y un script alterno para sembrado manual sobre DynamoDB Local.
 - Documentacion:
@@ -51,3 +54,4 @@ Todo el repositorio fue generado por `Codex (GPT-5)` dentro de una sola sesion d
 - Se normalizo `tipo` a minusculas en la capa de negocio para asegurar consultas consistentes por GSI.
 - Se incluyo la tabla DynamoDB y su indice como recursos en `serverless.yml` para que el proyecto quede autocontenido.
 - Se agrego el script `npm run seed` como apoyo local, aunque los scripts obligatorios solicitados (`dev` y `deploy`) se mantuvieron.
+- Se agrego una funcion frontend que entrega una UI HTML inline para navegar el marketplace desde el navegador sin incorporar un framework aparte.

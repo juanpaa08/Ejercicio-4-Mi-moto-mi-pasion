@@ -1,6 +1,6 @@
 # Moto Parts Marketplace Serverless API
 
-Repositorio monolitico y local-first que simula un entorno de AWS Lambda + DynamoDB sin requerir una cuenta real de AWS. La API permite publicar repuestos para moto y consultarlos por categoria usando una arquitectura serverless por capas.
+Repositorio monolitico y local-first que simula un entorno de AWS Lambda + DynamoDB sin requerir una cuenta real de AWS. La API permite publicar repuestos para moto y consultarlos por categoria usando una arquitectura serverless por capas. Ahora tambien incluye una interfaz web ligera para probar el flujo completo desde el navegador.
 
 ## Arquitectura
 
@@ -13,13 +13,14 @@ Topologia de funciones:
 3. La capa de negocio en `src/business/partes.service.js` valida reglas, construye entidades y coordina el caso de uso.
 4. La capa de repositorio en `src/repositories/partes.repository.js` encapsula todas las llamadas a DynamoDB.
 5. DynamoDB Local persiste y consulta los datos de la tabla `PartesMoto`, incluyendo el GSI `TipoIndex`.
+6. La funcion `src/functions/getFrontend.js` entrega una interfaz HTML que consume el mismo API local para listar y crear partes.
 
 ## Responsabilidades por capa
 
 - Model: `src/models/parte.model.js` define la forma de una `Parte` sin ejecutar logica.
 - Repository: `src/repositories/partes.repository.js` realiza lecturas y escrituras DynamoDB (`put`, `query`) y no contiene reglas de negocio.
 - Business: `src/business/partes.service.js` valida entrada, construye entidades, normaliza datos y llama al repositorio.
-- Function: `src/functions/createParte.js` y `src/functions/getPartes.js` traducen eventos HTTP a servicios y formatean la respuesta.
+- Function: `src/functions/createParte.js`, `src/functions/getPartes.js` y `src/functions/getFrontend.js` traducen eventos HTTP a servicios o sirven la UI HTML.
 
 ## Estructura del proyecto
 
@@ -41,6 +42,7 @@ moto-parts-serverless/
     ├── business/
     │   └── partes.service.js
     └── functions/
+        ├── getFrontend.js
         ├── createParte.js
         └── getPartes.js
 ```
@@ -61,7 +63,7 @@ serverless dynamodb install
 npm run dev
 ```
 
-La API quedara disponible en `http://localhost:3000/dev`.
+La API quedara disponible en `http://localhost:3000/dev` y la interfaz web en `http://localhost:3000/dev/app`.
 
 Variables locales recomendadas:
 
@@ -69,6 +71,22 @@ Variables locales recomendadas:
 2. Los valores por defecto ya apuntan a DynamoDB Local y usan credenciales ficticias.
 
 ## Endpoints
+
+### `GET /app`
+
+Sirve una interfaz HTML para explorar el inventario y crear nuevas partes desde el navegador.
+
+Abre en el browser:
+
+```text
+http://localhost:3000/dev/app
+```
+
+La pagina:
+
+- Consulta `GET /partes?tipo=x` para cargar inventario.
+- Ejecuta `POST /partes` al enviar el formulario.
+- Permite cambiar entre categorias y refrescar resultados.
 
 ### `POST /partes`
 
