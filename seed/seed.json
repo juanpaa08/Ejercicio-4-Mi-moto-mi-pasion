@@ -1,0 +1,44 @@
+[
+  {
+    "id": "0d4662c7-2225-4123-9851-a1b8339f2f10",
+    "nombre": "Carburador Keihin PWK 28",
+    "tipo": "motor",
+    "precio": 85,
+    "creadoEn": "2026-04-04T08:00:00.000Z"
+  },
+  {
+    "id": "19c52f7d-3574-4a06-9a2d-6e76d7f23341",
+    "nombre": "Kit de pistones Wiseco 250cc",
+    "tipo": "motor",
+    "precio": 210,
+    "creadoEn": "2026-04-04T08:05:00.000Z"
+  },
+  {
+    "id": "2867f66b-3ff5-4027-a57f-c0886d2c1320",
+    "nombre": "Disco de freno delantero Brembo 300mm",
+    "tipo": "frenos",
+    "precio": 140,
+    "creadoEn": "2026-04-04T08:10:00.000Z"
+  },
+  {
+    "id": "33eb7f93-e2bd-4be5-9208-9c7f4af84514",
+    "nombre": "Pastillas EBC HH para calle",
+    "tipo": "frenos",
+    "precio": 48.5,
+    "creadoEn": "2026-04-04T08:15:00.000Z"
+  },
+  {
+    "id": "4e7b6f54-43bb-424c-b9aa-d0288d76f0af",
+    "nombre": "Amortiguador trasero YSS ajustable",
+    "tipo": "suspension",
+    "precio": 320,
+    "creadoEn": "2026-04-04T08:20:00.000Z"
+  },
+  {
+    "id": "5ba0f74b-e9a9-4fa7-b0f2-42d98fc165df",
+    "nombre": "Juego de retenes de horquilla SKF",
+    "tipo": "suspension",
+    "precio": 36.9,
+    "creadoEn": "2026-04-04T08:25:00.000Z"
+  }
+]
