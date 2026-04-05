@@ -2,6 +2,30 @@
 
 Repositorio monolitico y local-first que simula un entorno de AWS Lambda + DynamoDB sin requerir una cuenta real de AWS. La API permite publicar repuestos para moto y consultarlos por categoria usando una arquitectura serverless por capas. Ahora tambien incluye una interfaz web ligera para probar el flujo completo desde el navegador.
 
+## Demo Rapido
+
+Cuando el entorno local esta levantado, estos son los puntos de entrada principales:
+
+- UI web: `http://localhost:3000/dev/app`
+- API GET: `http://localhost:3000/dev/partes?tipo=motor`
+- API POST: `http://localhost:3000/dev/partes`
+- DynamoDB Local shell: `http://localhost:8000/shell`
+
+Flujo de prueba recomendado:
+
+1. Abre la UI web.
+2. Filtra por `motor`, `frenos` o `suspension`.
+3. Crea una nueva parte desde el formulario.
+4. Verifica que aparece al instante en la lista.
+
+## Que Hace El Proyecto
+
+- Simula Lambda + API Gateway localmente con `serverless-offline`.
+- Simula DynamoDB con `serverless-dynamodb-local`.
+- Expone endpoints REST para crear y consultar partes de moto.
+- Incluye una interfaz web ligera para probar el flujo completo sin Postman.
+- Mantiene una separacion clara entre modelo, repositorio, negocio y handlers.
+
 ## Arquitectura
 
 `serverless-offline` simula API Gateway y Lambda en tu maquina local, mientras `serverless-dynamodb-local` levanta una instancia embebida de DynamoDB en el puerto `8000`. Esto permite desarrollar, probar y depurar el flujo completo sin credenciales reales ni recursos remotos.
@@ -65,6 +89,8 @@ npm run dev
 
 La API quedara disponible en `http://localhost:3000/dev` y la interfaz web en `http://localhost:3000/dev/app`.
 
+Si `serverless dynamodb install` falla por descarga del plugin en Windows, puedes volver a ejecutar el comando o descargar DynamoDB Local manualmente antes de iniciar el proyecto.
+
 Variables locales recomendadas:
 
 1. Copia `.env.example` si quieres personalizar variables.
@@ -87,6 +113,13 @@ La pagina:
 - Consulta `GET /partes?tipo=x` para cargar inventario.
 - Ejecuta `POST /partes` al enviar el formulario.
 - Permite cambiar entre categorias y refrescar resultados.
+
+### Vista Rapida De La UI
+
+La interfaz muestra dos zonas principales:
+
+- Un formulario para publicar una nueva parte con `nombre`, `tipo` y `precio`.
+- Un panel de inventario para filtrar categorias y ver los datos guardados en DynamoDB Local.
 
 ### `POST /partes`
 
